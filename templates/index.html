@@ -6,13 +6,26 @@
     </head>
 
 <body>
-    <h1>Hello, world!</h1>
+    <h1>Hi there! Welcome to Leadeo!</h1>
+    <!-- Form -->
+    <form class="form" action="/submit" method="post">
+        {{ form.csrf_token }}
 
-    <form>
-        <label>YouTube Video Link:</label>
-        <input ></input>
+        <label>YouTube Video Link:</label><br>
+        {{ form.video_link(placeholder="www.youtube.com/watch?v=EXAMPLEVIDEO", type="url", id="video_link") }}
 
-    </form>
+        </br></br>
+        <label>Note or Instructions:</label><br>
+        {{ form.note(placeholder="You can start working on Project X as soon as you finish this tutorial! Reach out to me if you need help!") }}
+        
+        </br>
+        <label>Would you like to enable autoplay?</label>
+        {{ form.autoplay }}
+        </br>
+        <input id="submit_button" type="submit" value="Generate Link!"/>
+    </form> 
+    <!-- Form ^^^ -->
+
 </body>
 
 </html>
