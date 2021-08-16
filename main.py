@@ -11,11 +11,22 @@ When go to that link, show video etc
 """
 
 from flask import Flask, render_template, url_for
-import random, os, string
+import random, os
 
 from flask_wtf import FlaskForm
 from wtforms import StringField, validators, TextAreaField, RadioField, ValidationError
 from wtforms.validators import DataRequired, Length, InputRequired, URL
+
+import functions
+
+# MongoDB
+import pymongo # If dnspython module error, do 'pip install pymongo[srv]'
+MongoDBUsername = os.environ['MongoDBUsername']
+MongoDBPassword = os.environ['MongoDBPassword']
+client = pymongo.MongoClient("mongodb+srv://" + MongoDBUsername + ":" + MongoDBPassword + "@cluster0.aoruz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
+db = client.database
+
+
 
 app = Flask(  # Create a flask app
 	__name__,
@@ -41,19 +52,7 @@ def dated_url_for(endpoint, **values):
 SECRET_KEY = os.urandom(32)
 app.config['SECRET_KEY'] = SECRET_KEY
 
-def get_url_name():
-    # Gets some random numbers and letters
-    numbers = random.randint(10000,99999)
-    letters = ''.join(random.choice(string.ascii_letters) for letter in range(8))
 
-    # What the URL can contain
-    url_contains = str(numbers) + letters
-    # Adds all characters to a list, then shuffles them and turns it into a string
-    url_contains = [character for character in url_contains] 
-    random.shuffle(url_contains)
-    url_name = ''.join(url_contains)
-
-    return url_name
 
 class video_note_form(FlaskForm):
     video_link = StringField('Link', [validators.input_required(), validators.URL(require_tld=True, message="Invalid URL")])
@@ -72,9 +71,17 @@ def submit():
         if autoplay == "yes_autoplay":
             video_link = video_link + "?autoplay=1"
 
-        url_name = get_url_name()
-        
+        url_name = functions.get_url_name()
+
         # Use a while loop to check to ensure that the url_name is not in the history database
+
+
+        # Don't need "autoplay" since it's within the video_link
+        about_note = {
+            "video_link": video_link,
+            "note": note,
+            "url_name": url_name
+        }
 
 
         return render_template("index.html", form=form)
