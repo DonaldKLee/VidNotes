@@ -5,6 +5,8 @@ function video_given() {
     // Remove https://www.youtube.com/watch?v=
     // Add https://www.youtube.com/embed/
     var new_link = link.replace('watch?v=', 'embed/');
+    // Removes the extra URL text if the video is from a playlist
+    var new_link = new_link.split("&list=")[0];
 
     // Shows video preview
     video_player.src = new_link;

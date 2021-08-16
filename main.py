@@ -2,6 +2,9 @@
 Project Name: Leadeo
 By: Donald Lee
 Start date: Aug 14th 2021
+
+Features:
+Add something where the user can copy the website link
 """
 
 from flask import Flask, render_template, url_for, redirect
@@ -14,12 +17,12 @@ from wtforms.validators import DataRequired, Length, InputRequired, URL
 import functions
 
 # MongoDB
+import dns # For mongodb to work, this installs an older version of bson, if version error, uninstall bson/pymongo to get it working again
 import pymongo # If dnspython module error, do 'pip install pymongo[srv]'
 MongoDBUsername = os.environ['MongoDBUsername']
 MongoDBPassword = os.environ['MongoDBPassword']
 client = pymongo.MongoClient("mongodb+srv://" + MongoDBUsername + ":" + MongoDBPassword + "@cluster0.aoruz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 db = client.database
-
 
 
 app = Flask(  # Create a flask app
@@ -49,7 +52,7 @@ app.config['SECRET_KEY'] = SECRET_KEY
 class video_note_form(FlaskForm):
     video_link = StringField('Link', [validators.input_required(), validators.URL(require_tld=True, message="Invalid URL")])
     note  = TextAreaField('Note', [validators.input_required()], render_kw={"rows": 20, "cols": 50})
-    #autoplay = RadioField('autoplay', choices=[('yes_autoplay','Yes'),('no_autoplay','No')], validators=[InputRequired(message="You must select an option!")])
+    autoplay = RadioField('autoplay', choices=[('yes_autoplay','Yes'),('no_autoplay','No')], validators=[InputRequired(message="You must select an option!")])
 
 # Submits the video_note_form
 @app.route('/submit', methods=['GET', 'POST'])
@@ -57,13 +60,16 @@ def submit():
     form = video_note_form() 
     if form.validate_on_submit():
         video_link = form.video_link.data.strip(" ").replace('watch?v=', 'embed/')
+        # Removes the extra URL text if the video is from a playlist
+        video_link = video_link.split("&list=")[0]
+
         note = form.note.data.strip(" ")
         
-        """
+
         autoplay = form.autoplay.data
         if autoplay == "yes_autoplay":
             video_link = video_link + "?autoplay=1"
-        """
+    
 
         url_name = functions.get_url_name()
         url_name_duplicate = True
