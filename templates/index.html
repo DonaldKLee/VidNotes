@@ -12,19 +12,38 @@
         {{ form.csrf_token }}
 
         <label>YouTube Video Link:</label><br>
-        {{ form.video_link(placeholder="www.youtube.com/watch?v=EXAMPLEVIDEO", type="url", id="video_link") }}
+        {{ form.video_link(placeholder="www.youtube.com/watch?v=EXAMPLEVIDEO", type="url", id="video_link", oninput="video_given()") }}
+
+        {% for error in form.video_link.errors %}
+            <li class="errors">{{ error }}</li>
+        {% endfor %}
 
         </br></br>
         <label>Note or Instructions:</label><br>
         {{ form.note(placeholder="You can start working on Project X as soon as you finish this tutorial! Reach out to me if you need help!") }}
         
+        {% for error in form.note.errors %}
+            <li class="errors">{{ error }}</li>
+        {% endfor %}
+
+
         </br>
         <label>Would you like to enable autoplay?</label>
         {{ form.autoplay }}
+
+        {% for error in form.autoplay.errors %}
+            <li class="errors">{{ error }}</li>
+        {% endfor %}
+
         </br>
-        <input id="submit_button" type="submit" value="Generate Link!"/>
+        <input type="submit" value="Generate Link!"/>
     </form> 
     <!-- Form ^^^ -->
+
+<iframe width="560" height="315" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" id="video_player" style="display:none" allowfullscreen></iframe>
+    
+
+<script src="{{url_for('static', filename='home.js')}}"></script>
 
 </body>
 
