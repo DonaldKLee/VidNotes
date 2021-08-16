@@ -6,12 +6,12 @@
     </head>
 
 <body>
-    <h1>Hi there! Welcome to Leadeo!</h1>
+    <h1>Hi there! Welcome to Leadeo notes!</h1>
 
-<iframe width="560" height="315" src=""  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" id="video_player" style="display:none" allowfullscreen></iframe>
+    <p>{{ note_data.note }}</p>
+
+    <iframe id="youtube_video" width="560" height="315" src="{{ note_data.video_link }}"  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     
-
-
 </body>
 
 </html>

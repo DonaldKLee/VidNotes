@@ -2,15 +2,9 @@
 Project Name: Leadeo
 By: Donald Lee
 Start date: Aug 14th 2021
-
-
-Add to mongodb database along side a very long generated code
-Ensure that it is not reused
-When go to that link, show video etc
-
 """
 
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, redirect
 import random, os
 
 from flask_wtf import FlaskForm
@@ -52,12 +46,10 @@ def dated_url_for(endpoint, **values):
 SECRET_KEY = os.urandom(32)
 app.config['SECRET_KEY'] = SECRET_KEY
 
-
-
 class video_note_form(FlaskForm):
     video_link = StringField('Link', [validators.input_required(), validators.URL(require_tld=True, message="Invalid URL")])
     note  = TextAreaField('Note', [validators.input_required()], render_kw={"rows": 20, "cols": 50})
-    autoplay = RadioField('autoplay', choices=[('yes_autoplay','Yes'),('no_autoplay','No')], validators=[InputRequired(message="You must select an option!")])
+    #autoplay = RadioField('autoplay', choices=[('yes_autoplay','Yes'),('no_autoplay','No')], validators=[InputRequired(message="You must select an option!")])
 
 # Submits the video_note_form
 @app.route('/submit', methods=['GET', 'POST'])
@@ -67,13 +59,25 @@ def submit():
         video_link = form.video_link.data.strip(" ").replace('watch?v=', 'embed/')
         note = form.note.data.strip(" ")
         
+        """
         autoplay = form.autoplay.data
         if autoplay == "yes_autoplay":
             video_link = video_link + "?autoplay=1"
+        """
 
         url_name = functions.get_url_name()
-
+        url_name_duplicate = True
         # Use a while loop to check to ensure that the url_name is not in the history database
+        while url_name_duplicate == True:
+            for data in db.url_names.find({"name":'url_names'}):
+                used_names = data['url_names']
+
+            if url_name in used_names:
+                url_name = functions.get_url_name()
+            else: # Not a duplicate, adds it to used name
+                used_names.append(url_name)
+                db.url_names.update_one({'name':'url_names'},{'$set':{'url_names':used_names}})
+                url_name_duplicate = False
 
 
         # Don't need "autoplay" since it's within the video_link
@@ -83,14 +87,30 @@ def submit():
             "url_name": url_name
         }
 
+        db.notes.insert_one(about_note)
 
-        return render_template("index.html", form=form)
+        return redirect(url_for('note', url_name = str(url_name)))
+
     return render_template("index.html", form=form)
     
 
 @app.route('/')  # Home page
 def home():
 	return render_template("index.html", form=video_note_form())
+
+@app.route('/note/<url_name>')
+def note(url_name):
+    foundnote = False
+
+    for note in db.notes.find({'url_name': str(url_name)}):
+        if len(note) > 0: # If that note has something
+            foundnote = True
+
+    if foundnote:
+        print(note)
+        return render_template("note.html", note_data=note)
+    else:
+        return redirect(url_for('home'))
 
 
 # For repl hosting
