@@ -1,3 +1,9 @@
+ // Runs again if the user's form does not submit. 
+ // This makes it so that the video shows again
+window.onload = function() {
+    video_given();
+};
+
 function video_given() {
     link = document.getElementById('video_link').value
     video_player = document.getElementById('video_player')

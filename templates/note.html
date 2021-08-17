@@ -2,16 +2,41 @@
 <html>
 
     <head>
-        <title>Leadeo</title> 
+        <title>Leadeo</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/note.css') }}">
     </head>
 
 <body>
     <h1>Hi there! Welcome to Leadeo notes!</h1>
 
+    <h2>Copy this link to send it to others, or to refer back to your note:</h2>
+    <input class="note_link" type="url" value="https://leadeo.donaldklee.repl.co/note/{{ note_data.url_name }}" id="note_link" readonly>
+    <button onclick="copy_note_link()">Copy link!</button>
+
+    <h2>Note title: {{ note_data.title }}</h2>
+
     <p>{{ note_data.note }}</p>
 
+
+
+
+    <form class="form" action="/duplicate" method="post">
+    {{ form.csrf_token }}
+    <label>Planning to add some notes while watching this video?</label>
+    </br>
+
+
+    {{ form.note_name(value=note_data.url_name) }}
+
+    <input type="submit" value="Click me to duplicate this note!"/>
+    </form>
+
+
+
+    <h2>Video:</h2>
     <iframe id="youtube_video" width="560" height="315" src="{{ note_data.video_link }}"  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     
-</body>
 
+    <script src="{{url_for('static', filename='javascript/note.js')}}"></script>
+</body>
 </html>

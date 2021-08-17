@@ -6,32 +6,41 @@
     </head>
 
 <body>
+
+
     <h1>Hi there! Welcome to Leadeo!</h1>
     <!-- Form -->
     <form class="form" action="/submit" method="post">
         {{ form.csrf_token }}
 
         <label>YouTube Video Link:</label><br>
-        {{ form.video_link(placeholder="www.youtube.com/watch?v=EXAMPLEVIDEO", type="url", id="video_link", oninput="video_given()") }}
 
+        {{ form.video_link(placeholder="www.youtube.com/watch?v=EXAMPLEVIDEO", type="url", id="video_link", oninput="video_given()") }}
+     
         {% for error in form.video_link.errors %}
             <li class="errors">{{ error }}</li>
         {% endfor %}
 
         </br></br>
+
+        <label>Note Title</label></br>
+
+        {{ form.title(placeholder="Task List After the Video", id="note_title") }}
+      
+        </br></br>
+
         <label>Note or Instructions:</label><br>
-        {{ form.note(placeholder="You can start working on Project X as soon as you finish this tutorial! Reach out to me if you need help!") }}
-        
+
+        {{ form.note(placeholder="You can start working on Project X as soon as you finish this tutorial! Reach out to me if you need help!", id="note_form") }}
+
         {% for error in form.note.errors %}
             <li class="errors">{{ error }}</li>
         {% endfor %}
 
-
         </br>
 
-        
-        <label>Would you like to enable autoplay?</label>
-        {{ form.autoplay }}
+        <label>Would you like to enable autoplay? (This will not work for all browsers)</label>
+        {{ form.autoplay(id="autoplay_form") }}
 
         {% for error in form.autoplay.errors %}
             <li class="errors">{{ error }}</li>
@@ -45,7 +54,31 @@
 <iframe width="560" height="315" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" id="video_player" style="display:none" allowfullscreen></iframe>
     
 
-<script src="{{url_for('static', filename='home.js')}}"></script>
+<script src="{{url_for('static', filename='javascript/home.js')}}"></script>
+
+{% if note_data %}
+<script>
+    video_link = document.getElementById("video_link");
+    note_title = document.getElementById("note_title");
+    note_form = document.getElementById("note_form");
+
+    autoplay_yes = document.getElementById("autoplay-0");
+    autoplay_no = document.getElementById("autoplay-1");
+
+    video_link.value = "{{ note_data.video_link }}";
+    note_title.value = "{{ note_data.title }}";
+    note_form.value = "{{ note_data.note }}";
+
+    if (video_link.value.includes("?autoplay=1")) {
+        autoplay_yes.checked = true;
+    }
+    else {
+        autoplay_no.checked = true;
+    }
+    
+
+</script>
+{% endif %}
 
 </body>
 

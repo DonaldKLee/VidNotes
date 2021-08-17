@@ -4,7 +4,11 @@ By: Donald Lee
 Start date: Aug 14th 2021
 
 Features:
-Add something where the user can copy the website link
+Password protect?
+Title of note
+
+Expire after 1 month of inactivity
+
 """
 
 from flask import Flask, render_template, url_for, redirect
@@ -50,7 +54,8 @@ SECRET_KEY = os.urandom(32)
 app.config['SECRET_KEY'] = SECRET_KEY
 
 class video_note_form(FlaskForm):
-    video_link = StringField('Link', [validators.input_required(), validators.URL(require_tld=True, message="Invalid URL")])
+    video_link = StringField('Link', [validators.input_required(), validators.URL(require_tld=True, message="Invalid URL"), functions.is_youtube_video])
+    title = StringField('Title')
     note  = TextAreaField('Note', [validators.input_required()], render_kw={"rows": 20, "cols": 50})
     autoplay = RadioField('autoplay', choices=[('yes_autoplay','Yes'),('no_autoplay','No')], validators=[InputRequired(message="You must select an option!")])
 
@@ -65,10 +70,19 @@ def submit():
 
         note = form.note.data.strip(" ")
         
+        title = form.title.data.strip(" ")
+        if len(title) == 0:
+            title = "Untitled"
 
         autoplay = form.autoplay.data
+
         if autoplay == "yes_autoplay":
-            video_link = video_link + "?autoplay=1"
+            # If the link doesn't have "?autoplay=1" in the link already, then add it
+            if "?autoplay=1" not in video_link: 
+                video_link = video_link + "?autoplay=1"
+        # If note was duplicated, and former link had autoplay enabled
+        else:
+            video_link = video_link.replace('?autoplay=1', '') 
     
 
         url_name = functions.get_url_name()
@@ -89,6 +103,7 @@ def submit():
         # Don't need "autoplay" since it's within the video_link
         about_note = {
             "video_link": video_link,
+            "title": title,
             "note": note,
             "url_name": url_name
         }
@@ -104,6 +119,27 @@ def submit():
 def home():
 	return render_template("index.html", form=video_note_form())
 
+class duplicate_note_form(FlaskForm):
+    note_name = StringField('note_name', [validators.input_required()])
+
+# Submits the video_note_form
+@app.route('/duplicate', methods=['GET', 'POST'])
+def duplicate():
+    form = duplicate_note_form() 
+    if form.validate_on_submit():
+        note_name = form.note_name.data.strip(" ")
+
+        for note in db.notes.find({'url_name': str(note_name)}):
+            if len(note) > 0: # If that note has something
+                foundnote = True
+
+        if foundnote:
+            print(note)
+            return render_template("index.html", note_data=note, form=video_note_form())
+    
+    return render_template('404.html')
+        
+
 @app.route('/note/<url_name>')
 def note(url_name):
     foundnote = False
@@ -114,9 +150,15 @@ def note(url_name):
 
     if foundnote:
         print(note)
-        return render_template("note.html", note_data=note)
+        return render_template("note.html", note_data=note, form=duplicate_note_form())
     else:
-        return redirect(url_for('home'))
+        return render_template('404.html')
+
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
 
 
 # For repl hosting

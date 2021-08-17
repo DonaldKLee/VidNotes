@@ -1,4 +1,6 @@
-import random, string
+import random, string, requests
+from wtforms import ValidationError
+
 
 def get_url_name():
     # Gets some random numbers and letters
@@ -13,3 +15,16 @@ def get_url_name():
     url_name = ''.join(url_contains)
 
     return url_name
+
+def is_youtube_video(form, field):
+    not_youtube_video = True
+    r = requests.get(field.data) 
+    if "Video unavailable" in r.text:
+        not_youtube_video = True
+    if "watch?v=" in field.data:
+        return
+    if "embed" in field.data:
+        return
+    if not_youtube_video:
+        raise ValidationError("This is not a valid YouTube link, please try again!")
+    
