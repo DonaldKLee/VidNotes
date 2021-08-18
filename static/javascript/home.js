@@ -7,6 +7,7 @@ window.onload = function() {
 function video_given() {
     link = document.getElementById('video_link').value
     video_player = document.getElementById('video_player')
+    youtube_video_container = document.getElementById('youtube_video_container')
 
     // Remove https://www.youtube.com/watch?v=
     // Add https://www.youtube.com/embed/
@@ -20,9 +21,9 @@ function video_given() {
 
     // If it's a YouTube video, show the video
     if (new_link.includes("embed/")) {
-        video_player.style.display = "block";
+        youtube_video_container.style.display = "block";
     }
     else { // Hides the video
-        video_player.style.display = "none";
+        youtube_video_container.style.display = "none";
     }
 }

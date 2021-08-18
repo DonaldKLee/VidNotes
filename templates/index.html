@@ -2,13 +2,17 @@
 <html>
 
     <head>
-        <title>Leadeo</title> 
+        <title>Leadeo</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}"> 
     </head>
 
 <body>
 
 
     <h1>Hi there! Welcome to Leadeo!</h1>
+
     <!-- Form -->
     <form class="form" action="/submit" method="post">
         {{ form.csrf_token }}
@@ -51,11 +55,13 @@
     </form> 
     <!-- Form ^^^ -->
 
-<iframe width="560" height="315" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" id="video_player" style="display:none" allowfullscreen></iframe>
-    
+<div class="youtube_video_container" id="youtube_video_container" style="display:none">
+    <iframe class="youtube_video" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" id="video_player" allowfullscreen></iframe>
+</div> 
 
 <script src="{{url_for('static', filename='javascript/home.js')}}"></script>
 
+{# If the note is a duplicate #}
 {% if note_data %}
 <script>
     video_link = document.getElementById("video_link");
@@ -75,10 +81,9 @@
     else {
         autoplay_no.checked = true;
     }
-    
-
 </script>
 {% endif %}
+{# If the note is a duplicate ^^^ #}
 
 </body>
 

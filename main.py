@@ -12,7 +12,11 @@ Expire after 1 month of inactivity
 """
 
 from flask import Flask, render_template, url_for, redirect
-import random, os
+import random, os, time
+
+from datetime import date
+from dateutil.relativedelta import relativedelta
+from apscheduler.schedulers.background import BackgroundScheduler
 
 from flask_wtf import FlaskForm
 from wtforms import StringField, validators, TextAreaField, RadioField, ValidationError
@@ -28,6 +32,15 @@ MongoDBPassword = os.environ['MongoDBPassword']
 client = pymongo.MongoClient("mongodb+srv://" + MongoDBUsername + ":" + MongoDBPassword + "@cluster0.aoruz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 db = client.database
 
+# Checks database and deletes any expired collections
+def deletes_expired():
+    today = date.today()
+    print(time.strftime("%A, %d. %B %Y %I:%M:%S %p"))
+    for note in db.notes.find():
+        expiry_date = note['expiry_date']
+        # If expired, delete
+        if str(expiry_date) < str(today):
+            db.notes.delete_one({"url_name":note['url_name']})
 
 app = Flask(  # Create a flask app
 	__name__,
@@ -105,7 +118,8 @@ def submit():
             "video_link": video_link,
             "title": title,
             "note": note,
-            "url_name": url_name
+            "url_name": url_name,
+            "expiry_date": str(date.today() + relativedelta(days=+21))
         }
 
         db.notes.insert_one(about_note)
@@ -160,6 +174,10 @@ def note(url_name):
 def page_not_found(e):
     return render_template('404.html'), 404
 
+# Runs "deletes_expired" every 5 minutes
+scheduler = BackgroundScheduler()
+scheduler.add_job(func=deletes_expired, trigger="interval", seconds=300)
+scheduler.start()
 
 # For repl hosting
 if __name__ == "__main__":  # Makes sure this is the main process
