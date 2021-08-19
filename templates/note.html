@@ -9,15 +9,20 @@
     </head>
 
 <body>
-    <h1>Hi there! Welcome to Leadeo notes!</h1>
 
-    <a href="/">Home Page</a>
+    <div class="top">
+        <h1>Hi there! Welcome to Leadeo notes!</h1>
 
-    <div class="left_container">
+        <a href="/">Home Page</a>
+
         <h2>Copy this link to send it to others, or to refer back to your note:</h2>
         <h4>Link expires after: {{ note_data.expiry_date }}</h4>
         <input class="note_link" type="url" value="https://leadeo.donaldklee.repl.co/note/{{ note_data.url_name }}" id="note_link" readonly>
         <button onclick="copy_note_link()">Copy link!</button>
+    </div>
+
+
+    <div class="left_container">
 
         <h2>{{ note_data.title }}</h2>
 

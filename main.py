@@ -5,9 +5,6 @@ Start date: Aug 14th 2021
 
 Features:
 Password protect?
-Title of note
-
-Expire after 1 month of inactivity
 
 """
 
