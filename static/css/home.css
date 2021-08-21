@@ -1,18 +1,78 @@
+body {
+    background: #000000;
+}
+
+.intro {
+    font-family: 'Roboto', sans-serif;
+    color:white;
+    font-size: 1em;
+}
+
 .form {
     width:50%;
     float:left;
 }
+
+label {
+    font-family: 'Roboto', sans-serif;
+    color:white;
+    font-size: 1em;
+    font-weight:bold;
+}
+
+.rounded_form_box {
+    background: #FFFFFF;
+    border-radius: 100px;
+    height: 25px;
+    width: 300px;
+    outline-width: 0;
+    margin-top: 10px;
+    padding-left: 10px;
+}
+
+.note_form {
+    background: #FFFFFF;
+    border-radius: 0px 50px;
+    padding: 15px;
+    outline-width: 0;
+    width: 300px;
+    max-width: 100%;
+    margin-top: 10px;
+}
+
+.autoplay_form {
+    list-style-type: none;
+}
+
+.submit_button {
+    background: #43C3FA;
+    border-radius: 100px;
+    width: 200px;
+    height: 35px;
+    color: white;
+    cursor: pointer;
+    float: right;
+    transition: 0.3s;
+    border: 3px solid #43C3FA;
+}
+
+.submit_button:hover {
+    background: none;
+}
+
 .youtube_video_container {
-    position: relative;
-    width: 50%;
-    height: 0;
-    padding-bottom: 56.25%;
-    float:right;
+    position: fixed;
+    width: 45%;
+    height: auto;
+    padding-bottom: 30%; /*Height of video*/
+    right: 0%;
+    border: white solid;
+    margin: 20px;
 }
 .youtube_video {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 50%;
+    height: 100%;
 }

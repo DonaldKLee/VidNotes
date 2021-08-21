@@ -5,21 +5,27 @@
         <title>Leadeo</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
+        <!-- Adds the Roboto font -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+        <!-- Adds the Roboto font ^^^ -->
+
         <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}"> 
+    
+
     </head>
 
 <body>
 
-
-    <h1>Hi there! Welcome to Leadeo!</h1>
-
+    <p class="intro">Send a link containing a YouTube video alongside notes or instructions,</br>or take notes while watching a YouTube video on the side</p>
     <!-- Form -->
     <form class="form" action="/submit" method="post">
         {{ form.csrf_token }}
 
         <label>YouTube Video Link:</label><br>
 
-        {{ form.video_link(placeholder="www.youtube.com/watch?v=EXAMPLEVIDEO", type="url", id="video_link", oninput="video_given()") }}
+        {{ form.video_link(placeholder="www.youtube.com/watch?v=EXAMPLEVIDEO", type="url", id="video_link", class="rounded_form_box", oninput="video_given()") }}
      
         {% for error in form.video_link.errors %}
             <li class="errors">{{ error }}</li>
@@ -29,29 +35,29 @@
 
         <label>Note Title</label></br>
 
-        {{ form.title(placeholder="Task List After the Video", id="note_title") }}
+        {{ form.title(placeholder="Task List After the Video", id="note_title", class="rounded_form_box") }}
       
         </br></br>
 
         <label>Note or Instructions:</label><br>
 
-        {{ form.note(placeholder="You can start working on Project X as soon as you finish this tutorial! Reach out to me if you need help!", id="note_form") }}
+        {{ form.note(placeholder="You can start working on Project X as soon as you finish this tutorial! Reach out to me if you need help!", id="note_form", class="note_form") }}
 
         {% for error in form.note.errors %}
             <li class="errors">{{ error }}</li>
         {% endfor %}
 
-        </br>
+        </br></br>
 
         <label>Would you like to enable autoplay? (This will not work for all browsers)</label>
-        {{ form.autoplay(id="autoplay_form") }}
+        {{ form.autoplay(id="autoplay_form", class="autoplay_form") }}
 
         {% for error in form.autoplay.errors %}
             <li class="errors">{{ error }}</li>
         {% endfor %} 
     
         </br>
-        <input type="submit" value="Generate Link!"/>
+        <input class="submit_button" type="submit" value="Generate Link!"/>
     </form> 
     <!-- Form ^^^ -->
 
