@@ -5,9 +5,8 @@ Start date: Aug 14th 2021
 
 Features:
 Password protect?
+Swap notes and video
 
-Bug:
-Duplicate doesn't work with text with line breaks
 """
 
 from flask import Flask, render_template, url_for, redirect

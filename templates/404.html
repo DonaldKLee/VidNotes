@@ -17,8 +17,21 @@
 
     </head>
 <body>
-    <h1>404 web page not found!</h1>
-    <h2>The note you are looking either does not exist, or has expired!</h2>
+
+    <div class="content">
+        {% include 'header.html' %}
+
+        <div class="error_container">
+            <h2 class="error_text">ERROR</h2>
+            <h1 class="error_type_text">404</h1>
+            <h2 class="message_text">The note or page you are looking for either does not exist, or has expired!</h2>
+        
+            <a href="/" class="return_home">Return Home!</a>
+        
+        </div>
+    </div>
+
+    {% include 'footer.html' %}
 </body>
 
 </html>
