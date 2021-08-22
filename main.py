@@ -171,7 +171,13 @@ def note(url_name):
     else:
         return render_template('404.html')
 
+@app.route('/about')  # Home page
+def about():
+	return render_template("about.html")
 
+@app.route('/faq')  # Home page
+def faq():
+	return render_template("faq.html")
 
 @app.errorhandler(404)
 def page_not_found(e):

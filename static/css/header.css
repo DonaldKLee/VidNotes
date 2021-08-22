@@ -8,14 +8,12 @@
 }
 .nav_left {
     font-family: 'Roboto', sans-serif;
-    color: white;
     list-style-type: none;
     font-size: 3em; 
     float: left;
     font-weight: bold;
 }
 .nav_right {
-    color: white;
     font-family: 'Roboto', sans-serif;
     float:right;
     list-style-type: none;
@@ -27,4 +25,18 @@
     height: 2px;
     background: #FFFFFF;
     width: 100%;
+}
+
+.nav_link {
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.nav_link:hover {
+    color: #43C3FA;
+}
+
+.active {
+    color: #43C3FA;
 }
