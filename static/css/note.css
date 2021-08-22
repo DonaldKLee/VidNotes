@@ -4,31 +4,68 @@
 
 .left_container {
     width:50%;
-    float:left;
 }
 .note_link {
-    width: 600px;
+    width: 500px;
+    background: #FFFFFF;
+    border-radius: 100px;
+    border: white solid;
+    height: 25px;
+    outline-width: 0;
+    margin-top: 10px;
+    padding-left: 10px;
+}
+
+.copy_link_button {
+    background: #43C3FA;
+    border-radius: 100px;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+    border: 3px solid #43C3FA;
+    font-weight: bold;
+    padding: 2px 20px 2px 20px;
+    margin-left: -120px;
+}
+.copy_link_button:hover {
+    background: none;
+    color: #43C3FA;
+}
+
+.expiry_date {
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1em;
 }
 
 .the_note {
-    background: #F2F2F2;
+    background: #FFFFFF;
     width: 90%;
+    min-height: 300px;
     white-space: pre-wrap; /* Preserves new lines */
-    border-style: solid;
     padding: 20px;
+    border-radius: 0px 50px;
 }
 
-.youtube_video_container {
-    position: relative;
-    width: 50%;
-    height: auto;
-    padding-bottom: 30%; /*Height of video*/
-    float:right;
+.note_title {
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.2em;
 }
-.youtube_video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+
+.duplicate_button {
+    background: #43C3FA;
+    border-radius: 100px;
+    width: 250px;
+    height: 35px;
+    color: white;
+    cursor: pointer;
+    float: right;
+    transition: 0.3s;
+    border: 3px solid #43C3FA;
+    font-weight: bold;
+}
+
+.duplicate_button:hover {
+    background: none;
 }

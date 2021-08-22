@@ -6,6 +6,8 @@ Start date: Aug 14th 2021
 Features:
 Password protect?
 
+Bug:
+Duplicate doesn't work with text with line breaks
 """
 
 from flask import Flask, render_template, url_for, redirect
@@ -128,7 +130,7 @@ def submit():
 
 @app.route('/')  # Home page
 def home():
-	return render_template("index.html", form=video_note_form())
+	return render_template("index.html", note_data=None, form=video_note_form())
 
 class duplicate_note_form(FlaskForm):
     note_name = StringField('note_name', [validators.input_required()])
@@ -145,7 +147,11 @@ def duplicate():
                 foundnote = True
 
         if foundnote:
+            print("FOUND NOTE\n\n")
             print(note)
+
+            print("\n\n\n")
+
             return render_template("index.html", note_data=note, form=video_note_form())
     
     return render_template('404.html')
@@ -161,6 +167,7 @@ def note(url_name):
 
     if foundnote:
         print(note)
+
         return render_template("note.html", note_data=note, form=duplicate_note_form())
     else:
         return render_template('404.html')

@@ -5,49 +5,64 @@
         <title>Leadeo</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/note.css') }}">
-    
+        <!-- Adds the Roboto font -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
-            
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+        <!-- Adds the Roboto font ^^^ -->
+        
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}"> 
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/note.css') }}"> 
+        
+
     </head>
 
 <body>
 
-    <div class="top">
-        <h1>Hi there! Welcome to Leadeo notes!</h1>
+    <div class="content">
 
-        <a href="/">Home Page</a>
+        {% include 'header.html' %}
 
-        <h2>Copy this link to send it to others, or to refer back to your note:</h2>
-        <h4>Link expires after: {{ note_data.expiry_date }}</h4>
-        <input class="note_link" type="url" value="https://leadeo.donaldklee.repl.co/note/{{ note_data.url_name }}" id="note_link" readonly>
-        <button onclick="copy_note_link()">Copy link!</button>
+        <p class="intro">Send a link containing a YouTube video alongside notes or instructions,</br>or take notes while watching a YouTube video on the side</p>
+        
+
+        <div class="top">
+            <label>Copy this link to send it to others, or to refer back to your note:</label>
+            
+            </br>
+            
+            <input class="note_link" type="url" value="https://leadeo.donaldklee.repl.co/note/{{ note_data.url_name }}" id="note_link" readonly>
+            <button class="copy_link_button" onclick="copy_note_link()">Copy link!</button>
+
+            <h4 class="expiry_date">Link expires after: {{ note_data.expiry_date }}</h4>
+        </div>
+
+
+        <div class="left_container">
+
+            <h2 class="note_title">{{ note_data.title }}</h2>
+
+            <p class="the_note">{{ note_data.note }}</p>
+
+            <form class="form" action="/duplicate" method="post">
+            {{ form.csrf_token }}
+            <label>Planning to add some notes while watching this video? Or want to renew this link?</label>
+            </br>
+
+
+            {{ form.note_name(value=note_data.url_name, style="display:none;") }}
+            </br>
+            <input class="duplicate_button" type="submit" value="Click me to duplicate this note!"/>
+            </form>
+        </div>
+
+        <div class="youtube_video_container">
+            <iframe class="youtube_video" id="youtube_video" src="{{ note_data.video_link }}"  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div> 
+
     </div>
 
-
-    <div class="left_container">
-
-        <h2>{{ note_data.title }}</h2>
-
-        <p class="the_note">{{ note_data.note }}</p>
-
-        <form class="form" action="/duplicate" method="post">
-        {{ form.csrf_token }}
-        <label>Planning to add some notes while watching this video? Or want to renew this link?</label>
-        </br>
-
-
-        {{ form.note_name(value=note_data.url_name, style="display:none;") }}
-        </br>
-        <input type="submit" value="Click me to duplicate this note!"/>
-        </form>
-    </div>
-
-    <div class="youtube_video_container">
-        <iframe class="youtube_video" id="youtube_video" src="{{ note_data.video_link }}"  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    </div> 
+    {% include 'footer.html' %}
 
     <script src="{{url_for('static', filename='javascript/note.js')}}"></script>
 </body>
