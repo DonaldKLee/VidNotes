@@ -9,10 +9,16 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+        
+        
+        <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+        </style>
         <!-- Adds the Roboto font ^^^ -->
 
+
         <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}"> 
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}"> 
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/faq.css') }}"> 
         
 
     </head>
@@ -25,7 +31,33 @@
         {% include 'header.html' %}
         {% endwith %}
 
-        <h1 style="color:white;">Coming soon!</h1>
+        <h1 style="color:white;">Frequently Asked Questions</h1>
+
+        	<!--Accordion start-->
+<div class="accordion_container">
+
+	<button class="accordion accordion_text"><div class="accordion_circle"></div> When an unknown printer took  only five centuries, but also the leap into electronic typesetting, remaining essentially ?</button>
+	<div class="inside_accordion">
+		<p class="accordion_answer_text">A: Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+	</div>
+
+	<button class="accordion accordion_text"><div class="accordion_circle"></div> When an unknown printer took  only five centuries, but also the leap into electronic typesetting, remaining essentially ?</button>
+	<div class="inside_accordion">
+		<p class="accordion_answer_text">A: Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+	</div>
+
+	<button class="accordion accordion_text"><div class="accordion_circle"></div> When an unknown printer took  only five centuries, but also the leap into electronic typesetting, remaining essentially ?</button>
+	<div class="inside_accordion">
+		<p class="accordion_answer_text">A: Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+	</div>
+
+	<button class="accordion accordion_text"><div class="accordion_circle"></div> When an unknown printer took  only five centuries, but also the leap into electronic typesetting, remaining essentially ?</button>
+	<div class="inside_accordion">
+		<p class="accordion_answer_text">A: Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+	</div>
+
+</div>
+<!--Accordion end-->
 
     </div>
 
@@ -34,5 +66,22 @@
 
 </body>
 
+	<script>
+        var faq_accordion = document.getElementsByClassName("accordion");
+        var faq_status;
+
+        for (faq_status = 0; faq_status < faq_accordion.length; faq_status++) {
+        faq_accordion[faq_status].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var accordion_container = this.nextElementSibling;
+            if (accordion_container.style.maxHeight) {
+                accordion_container.style.maxHeight = null;
+            } 
+            else {
+                accordion_container.style.maxHeight = accordion_container.scrollHeight + "px";
+            } 
+        });
+        }
+    </script>
 
 </html>

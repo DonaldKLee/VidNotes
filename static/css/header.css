@@ -7,14 +7,14 @@
     margin-top: 20px;
 }
 .nav_left {
-    font-family: 'Roboto', sans-serif;
+    
     list-style-type: none;
     font-size: 3em; 
     float: left;
     font-weight: bold;
 }
 .nav_right {
-    font-family: 'Roboto', sans-serif;
+    
     float:right;
     list-style-type: none;
     padding-left: 50px;
