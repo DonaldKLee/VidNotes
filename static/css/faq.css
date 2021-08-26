@@ -34,7 +34,7 @@
     transition: 0.25s;
 }
 .accordion_text {
-	text-align: center;
+	text-align: left;
 	font-size: 1.2em;
 	color: #000000 !important;
 	padding:10px;
@@ -48,6 +48,7 @@
     width: 20px;
     float: left;
     margin-left: 20px;
+    margin-right: 20px;
 }
 
 

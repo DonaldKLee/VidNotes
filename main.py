@@ -6,6 +6,7 @@ Start date: Aug 14th 2021
 Features:
 Password protect?
 Swap notes and video
+Email the contents to you
 
 """
 

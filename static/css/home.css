@@ -26,6 +26,7 @@
 
 .autoplay_form {
     list-style-type: none;
+    padding: 0;
 }
 
 .submit_button {
