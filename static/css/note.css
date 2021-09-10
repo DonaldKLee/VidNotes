@@ -6,6 +6,7 @@
     width:50%;
 }
 .note_link {
+    position: relative;
     width: 500px;
     background: #FFFFFF;
     border-radius: 100px;
@@ -17,6 +18,7 @@
 }
 
 .copy_link_button {
+    position: relative;
     background: #43C3FA;
     border-radius: 100px;
     color: white;
@@ -60,7 +62,6 @@
     height: 35px;
     color: white;
     cursor: pointer;
-    float: right;
     transition: 0.3s;
     border: 3px solid #43C3FA;
     font-weight: bold;
@@ -68,4 +69,40 @@
 
 .duplicate_button:hover {
     background: none;
+}
+
+
+@media only screen and (max-width: 1000px) {
+    .youtube_video_container {
+        position: sticky;
+        width: 100%;
+        top: 0%;
+        height: 25vh;
+        margin: 0 auto;
+        display: block;
+        text-align: center;
+        z-index: 2;
+        margin-bottom: 200px;
+    }
+    .note_link {
+        width: 95%;
+    }
+    .left_container {
+        width: 100%;
+    }
+    .duplicate_button {
+        float: none;
+        margin: 0 auto;
+        display: block;
+    }
+    .copy_link_button {
+        margin-left: -117.5px;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .copy_link_button {
+        margin-left: 0px;
+        margin-top: 10px;
+    }
 }

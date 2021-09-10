@@ -2,6 +2,7 @@
  // This makes it so that the video shows again
 window.onload = function() {
     video_given();
+    on_email();
 };
 
 function video_given() {
@@ -25,5 +26,16 @@ function video_given() {
     }
     else { // Hides the video
         youtube_video_container.style.display = "none";
+    }
+}
+
+function on_email() {
+    email_text = document.getElementById("note_email").value;
+    submit_button = document.getElementById("submit_button");
+    if (email_text) {
+        submit_button.value = "Generate link and Email me!"
+    }
+    else {
+        submit_button.value = "Generate link!"
     }
 }

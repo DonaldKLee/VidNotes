@@ -1,5 +1,5 @@
 """
-Project Name: Leadeo
+Project Name: VidNotes
 By: Donald Lee
 Start date: Aug 14th 2021
 
@@ -7,11 +7,14 @@ Features:
 Password protect?
 Swap notes and video
 Email the contents to you
+History section? (Local storage)
 
 """
 
 from flask import Flask, render_template, url_for, redirect
 import random, os, time
+import smtplib, ssl
+from email.message import EmailMessage
 
 from datetime import date
 from dateutil.relativedelta import relativedelta
@@ -70,11 +73,13 @@ class video_note_form(FlaskForm):
     title = StringField('Title')
     note  = TextAreaField('Note', [validators.input_required()], render_kw={"rows": 20, "cols": 50})
     autoplay = RadioField('autoplay', choices=[('yes_autoplay','Yes'),('no_autoplay','No')], validators=[InputRequired(message="You must select an option!")])
+    email = StringField('email')
 
 # Submits the video_note_form
 @app.route('/submit', methods=['GET', 'POST'])
 def submit():
     form = video_note_form() 
+
     if form.validate_on_submit():
         video_link = form.video_link.data.strip(" ").replace('watch?v=', 'embed/')
         # Removes the extra URL text if the video is from a playlist
@@ -111,17 +116,42 @@ def submit():
                 db.url_names.update_one({'name':'url_names'},{'$set':{'url_names':used_names}})
                 url_name_duplicate = False
 
-
+        expiry_date = str(date.today() + relativedelta(days=+21))
         # Don't need "autoplay" since it's within the video_link
         about_note = {
             "video_link": video_link,
             "title": title,
             "note": note,
             "url_name": url_name,
-            "expiry_date": str(date.today() + relativedelta(days=+21))
+            "expiry_date": expiry_date
         }
 
         db.notes.insert_one(about_note)
+
+        email = form.email.data.strip(" ")
+
+        try:
+            if email:
+                gmail_user = os.environ['email']
+                gmail_password = os.environ['password']
+
+                subject = title
+                body = f"{note}\n\nLink: https://vidnotes.donaldklee.repl.co/note/{url_name}\nLink expires after: {expiry_date}"
+
+                msg = EmailMessage()
+                msg.set_content(body)
+
+                msg['Subject'] = subject
+                msg['From'] = gmail_user
+                msg['To'] = email
+
+                # Send the message via our own SMTP server.
+                server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+                server.login(msg['From'], gmail_password)
+                server.send_message(msg)
+                server.quit()
+        except:
+            print("Could not send email")
 
         return redirect(url_for('note', url_name = str(url_name)))
 

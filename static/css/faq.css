@@ -72,3 +72,24 @@
     margin: 10px auto;
     display: block;
 }
+
+@media only screen and (max-width: 800px) {
+    .accordion_text, .accordion_answer_text {
+        font-size: 1em;
+    }
+    .accordion_circle {
+        height: 15px;
+        width: 15px;
+    }
+}
+
+@media only screen and (max-width: 550px) {
+    .accordion_circle {
+        margin-left: 5px;
+        margin-right: 10px;
+    }
+    /*The plus and minus sign*/
+    .accordion:after {
+        margin-right: 5px;
+    }
+}

@@ -1,4 +1,7 @@
-<link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}"> 
-
 <footer>
+    <ul class="nav_links_container">
+        <li class="footer_nav"><a class="nav_link {{ 'active' if active_page == 'home' else '' }}" href="/">Home</a></li>
+        <li class="footer_nav"><a class="nav_link {{ 'active' if active_page == 'about' else '' }}" href="/about">About</a></li>
+        <li class="footer_nav"><a class="nav_link {{ 'active' if active_page == 'faq' else '' }}" href="/faq">FAQ</a></li>
+    </ul>
 </footer>

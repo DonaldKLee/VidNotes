@@ -2,7 +2,7 @@
 <html>
 
     <head>
-        <title>Leadeo</title>
+        <title>VidNotes</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!-- Adds the Roboto font -->
@@ -25,42 +25,38 @@
 
 <body>
     
-    <div class="content">
+    <div class="top_container">
+        <div class="content">
 
-        {% with active_page="faq" %} {# sets faq as the active page #}
-        {% include 'header.html' %}
-        {% endwith %}
+            {% with active_page="faq" %} {# sets faq as the active page #}
+            {% include 'header.html' %}
+            {% endwith %}
 
-        <h1 style="color:white;">Frequently Asked Questions</h1>
+            <h1 class="page_title">Frequently Asked Questions</h1>
 
-        	<!--Accordion start-->
-<div class="accordion_container">
+            <!--Accordion start-->
+            <div class="accordion_container">
 
-	<button class="accordion accordion_text"><div class="accordion_circle"></div>Do notes ever expire?</button>
-	<div class="inside_accordion">
-		<p class="accordion_answer_text">Notes expire after 14 days, however, you can renew notes by duplicating them before they expire! </p>
-	</div>
+                <button class="accordion accordion_text"><div class="accordion_circle"></div>Do notes ever expire?</button>
+                <div class="inside_accordion">
+                    <p class="accordion_answer_text">Notes expire after 14 days, however, you can renew notes by duplicating them before they expire! </p>
+                </div>
 
-	<button class="accordion accordion_text"><div class="accordion_circle"></div>Is data on your users being collected?</button>
-	<div class="inside_accordion">
-		<p class="accordion_answer_text">No. We do not collect or store any user’s personal data onto our databases.</p>
-	</div>
+                <button class="accordion accordion_text"><div class="accordion_circle"></div>Is data on your users being collected?</button>
+                <div class="inside_accordion">
+                    <p class="accordion_answer_text">No. We do not collect or store any user’s personal data onto our databases.</p>
+                </div>
 
-	<button class="accordion accordion_text"><div class="accordion_circle"></div>Is Leadeo open-source?</button>
-	<div class="inside_accordion">
-		<p class="accordion_answer_text">Yes! You can contribute to Leadeo by heading over to our GitHub repository, and making a pull request, or issue!</p>
-	</div>
+                <button class="accordion accordion_text"><div class="accordion_circle"></div>Is VidNotes open-source?</button>
+                <div class="inside_accordion">
+                    <p class="accordion_answer_text">Yes! You can contribute to VidNotes by heading over to our GitHub repository, and making a pull request, or issue!</p>
+                </div>
 
-	<button class="accordion accordion_text"><div class="accordion_circle"></div> Question</button>
-	<div class="inside_accordion">
-		<p class="accordion_answer_text">Answer</p>
-	</div>
+            </div>
+            <!--Accordion end-->
 
-</div>
-<!--Accordion end-->
-
+        </div>
     </div>
-
 
     {% include 'footer.html' %}
 

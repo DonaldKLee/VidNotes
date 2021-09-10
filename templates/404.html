@@ -2,7 +2,7 @@
 <html>
 
     <head>
-        <title>Leadeo</title>
+        <title>404 Page not found - VidNotes</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!-- Adds the Roboto font -->
@@ -23,17 +23,18 @@
 
     </head>
 <body>
+    <div class="top_container">
+        <div class="content">
+            {% include 'header.html' %}
 
-    <div class="content">
-        {% include 'header.html' %}
-
-        <div class="error_container">
-            <h2 class="error_text">ERROR</h2>
-            <h1 class="error_type_text">404</h1>
-            <h2 class="message_text">The note or page you are looking for either does not exist, or has expired!</h2>
-        
-            <a href="/" class="return_home">Return Home!</a>
-        
+            <div class="error_container">
+                <h2 class="error_text">ERROR</h2>
+                <h1 class="error_type_text">404</h1>
+                <h2 class="message_text">The note or page you are looking for either does not exist, or has expired!</h2>
+            
+                <a href="/" class="return_home">Return Home!</a>
+            
+            </div>
         </div>
     </div>
 

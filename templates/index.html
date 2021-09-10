@@ -2,7 +2,7 @@
 <html>
 
     <head>
-        <title>Leadeo</title>
+        <title>VidNotes</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!-- Adds the Roboto font -->
@@ -24,91 +24,104 @@
 
 <body>
     
-    <div class="content">
+    <div class="top_container">
 
-        {% with active_page="home" %} {# sets home as the active page #}
-        {% include 'header.html' %}
-        {% endwith %}
+        <div class="content">
 
-        <p class="intro">Send a link containing a YouTube video alongside notes or instructions,</br>or take notes while watching a YouTube video on the side</p>
-        <!-- Form -->
-        <form class="form" action="/submit" method="post">
-            {{ form.csrf_token }}
+            {% with active_page="home" %} {# sets home as the active page #}
+            {% include 'header.html' %}
+            {% endwith %}
 
-            <label>YouTube Video Link:</label><br>
+            <p class="intro">Send a link containing a YouTube video alongside notes or instructions,</br>or take notes while watching a YouTube video on the side</p>
+            
+            <div class="youtube_video_container" id="youtube_video_container" style="display:none">
+                <iframe class="youtube_video" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" id="video_player" allowfullscreen></iframe>
+            </div> 
 
+            <!-- Form -->
+            <form class="form" action="/submit" method="post">
+                {{ form.csrf_token }}
 
-            {% if note_data %}
-                {{ form.video_link(value=note_data.video_link, placeholder="www.youtube.com/watch?v=EXAMPLEVIDEO", type="url", id="video_link", class="rounded_form_box", oninput="video_given()") }}
-            {% else %}
-                {{ form.video_link(placeholder="www.youtube.com/watch?v=EXAMPLEVIDEO", type="url", id="video_link", class="rounded_form_box", oninput="video_given()") }}
-            {% endif %}
-
-
-            {% for error in form.video_link.errors %}
-                <li class="errors">{{ error }}</li>
-            {% endfor %}
-
-            </br></br>
-
-            <label>Note Title</label></br>
-
-
-            {% if note_data %}
-                {{ form.title(value=note_data.title, placeholder="Title of the note/instruction...", id="note_title", class="rounded_form_box") }}
-            {% else %}
-                {{ form.title(placeholder="Title of the note/instruction...", id="note_title", class="rounded_form_box") }}
-            {% endif %}
-
-            </br></br>
-
-            <label>Note or Instructions:</label><br>
-
-            {% if note_data %}
-                {% set f = form.note.process_data(note_data.note) %}
-                {{ form.note(data=note_data.note, placeholder="Write your notes or instructions here...", id="note_form", class="note_form") }}
-            {% else %}
-                {{ form.note(placeholder="Write your notes or instructions here...", id="note_form", class="note_form") }}
-            {% endif %}
-
-
-            {% for error in form.note.errors %}
-                <li class="errors">{{ error }}</li>
-            {% endfor %}
-
-            </br></br>
-
-            <label>Would you like to enable autoplay? (This will not work for all browsers)</label>
-            {{ form.autoplay(id="autoplay_form", class="autoplay_form") }}
-
-            {% for error in form.autoplay.errors %}
-                <li class="errors">{{ error }}</li>
-            {% endfor %} 
+                <label>YouTube Video Link:</label><br>
 
 
                 {% if note_data %}
-                <script>
-                    video_link = document.getElementById("video_link");
-                    autoplay_yes = document.getElementById("autoplay-0");
-                    autoplay_no = document.getElementById("autoplay-1");
-
-                    if (video_link.value.includes("?autoplay=1")) {
-                        autoplay_yes.checked = true;
-                    }
-                    else {
-                        autoplay_no.checked = true;
-                    }
-                </script>
+                    {{ form.video_link(value=note_data.video_link, placeholder="www.youtube.com/watch?v=EXAMPLEVIDEO", type="url", id="video_link", class="rounded_form_box", oninput="video_given()") }}
+                {% else %}
+                    {{ form.video_link(value="https://www.youtube.com/watch?v=B_Pd4EvwpQY", placeholder="www.youtube.com/watch?v=EXAMPLEVIDEO", type="url", id="video_link", class="rounded_form_box", oninput="video_given()") }}
                 {% endif %}
 
-            </br>
-            <input class="submit_button" type="submit" value="Generate Link!"/>
-        </form> 
-        <!-- Form ^^^ -->
 
-        <div class="youtube_video_container" id="youtube_video_container" style="display:none">
-            <iframe class="youtube_video" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" id="video_player" allowfullscreen></iframe>
-        </div> 
+                {% for error in form.video_link.errors %}
+                    <li class="errors">{{ error }}</li>
+                {% endfor %}
+
+                </br></br>
+
+                <label>Note Title</label></br>
+
+
+                {% if note_data %}
+                    {{ form.title(value=note_data.title, placeholder="Title of the note/instruction...", id="note_title", class="rounded_form_box") }}
+                {% else %}
+                    {{ form.title(placeholder="Title of the note/instruction...", id="note_title", class="rounded_form_box") }}
+                {% endif %}
+
+                </br></br>
+
+                <label>Note or Instructions:</label><br>
+
+                {% if note_data %}
+                    {% set f = form.note.process_data(note_data.note) %}
+                    {{ form.note(data=note_data.note, placeholder="Write your notes or instructions here...", id="note_form", class="note_form") }}
+                {% else %}
+                    {{ form.note(placeholder="Write your notes or instructions here...", id="note_form", class="note_form") }}
+                {% endif %}
+
+
+                {% for error in form.note.errors %}
+                    <li class="errors">{{ error }}</li>
+                {% endfor %}
+
+                </br></br>
+
+                <label>Would you like to enable autoplay? (This will not work for all browsers)</label>
+                {{ form.autoplay(id="autoplay_form", class="autoplay_form") }}
+
+                {% for error in form.autoplay.errors %}
+                    <li class="errors">{{ error }}</li>
+                {% endfor %} 
+
+                <label>Email me my notes and link (Optional):</label></br>
+                {{ form.email(type="email", placeholder="Your email address...", id="note_email", class="rounded_form_box", oninput="on_email()") }}
+                
+                {% for error in form.email.errors %}
+                    <li class="errors">{{ error }}</li>
+                {% endfor %} 
+
+
+                    {% if note_data %}
+                    <script>
+                        video_link = document.getElementById("video_link");
+                        autoplay_yes = document.getElementById("autoplay-0");
+                        autoplay_no = document.getElementById("autoplay-1");
+
+                        if (video_link.value.includes("?autoplay=1")) {
+                            autoplay_yes.checked = true;
+                        }
+                        else {
+                            autoplay_no.checked = true;
+                        }
+                    </script>
+                    {% endif %}
+
+                </br></br>
+                <input class="submit_button" id="submit_button" type="submit" value="Generate link!"/>
+            </form> 
+            <!-- Form ^^^ -->
+
+        </div>
+    
     </div>
 
 

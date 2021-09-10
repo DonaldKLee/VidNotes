@@ -1,12 +1,11 @@
 <style>
     .about_container {
-        padding: 20px;
-        height: 60%;
+        padding: 0px 20px 0px 20px; /* Only for left and right */
+        min-height: 50%;
     }
     .about_text {
         color: white;
         font-size: 1.1em;
-        white-space: pre-wrap; /* Preserves new lines */
     }
 </style>
 
@@ -14,7 +13,7 @@
 <html>
 
     <head>
-        <title>Leadeo</title>
+        <title>VidNotes</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!-- Adds the Roboto font -->
@@ -37,31 +36,33 @@
 
 <body>
     
-    <div class="content">
+    <div class="top_container">
+        <div class="content">
 
-        {% with active_page="about" %} {# sets about as the active page #}
-        {% include 'header.html' %}
-        {% endwith %}
+            {% with active_page="about" %} {# sets about as the active page #}
+            {% include 'header.html' %}
+            {% endwith %}
 
 
-        <h1 style="color:white;">About Leadeo</h1>
+            <h1 class="page_title">About VidNotes</h1>
 
-        <div class="about_container">
-            <p class="about_text">Have you ever wanted to take notes while watching a YouTube video without the use of split-screen? Or wanted to send instructions alongside a video to a friend, team member, or colleague? 
+            <div class="about_container">
+                <p class="about_text">Have you ever wanted to take notes while watching a YouTube video without the use of split-screen? Or wanted to send instructions alongside a video to a friend, team member, or colleague? 
 
-Leadeo allows you to send a link containing a YouTube video alongside notes or instructions, or take notes while watching a YouTube video on the side!
+    </br></br>VidNotes is a free web based service that allows you to send a link containing a YouTube video alongside notes or instructions, or take notes while watching a YouTube video on the side!
 
-Simply get the YouTube video link, paste it into the text box. If the video exists, it will pop up on the side of your screen! From there, you can simply play the video, and type notes while watching it! When you finish taking your notes, or want to save, you can generate a link, and save it for later! Whenever you are ready, you can always go back to that link, and view your notes, or duplicate it if you would like to edit. Want to share your notes with a friend? Simply send them the link!
+    </br></br>Simply get the YouTube video link, paste it into the text box. If the video exists, it will pop up on the side of your screen! From there, you can simply play the video, and type notes while watching it! When you finish taking your notes, or want to save, you can generate a link, and save it for later! Whenever you are ready, you can always go back to that link, and view your notes, or duplicate it if you would like to edit. Want to share your notes with a friend? Simply send them the link!
 
-Note: Notes will expire after 14 days, however, you can renew notes by duplicating them before they expire! 
+    </br></br>Note: Notes will expire after 14 days, however, you can renew notes by duplicating them before they expire! 
 
-Have any questions? Check out our FAQ page!
+    </br></br>Have any questions? Check out our FAQ page!
 
-Try Leadeo, it’s free!
-</p>
+    </br></br>Try VidNotes, it’s free!
+    </p>
+            </div>
         </div>
-    </div>
 
+    </div>
 
     {% include 'footer.html' %}
 

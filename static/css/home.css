@@ -1,7 +1,3 @@
-.form {
-    width:50%;
-}
-
 .rounded_form_box {
     background: #FFFFFF;
     border-radius: 100px;
@@ -36,7 +32,6 @@
     height: 35px;
     color: white;
     cursor: pointer;
-    float: right;
     transition: 0.3s;
     border: 3px solid #43C3FA;
     font-weight: bold;
@@ -44,4 +39,26 @@
 
 .submit_button:hover {
     background: none;
+}
+
+@media only screen and (max-width: 1000px) {
+    .rounded_form_box {
+        height: 25px;
+        width: 95%;
+    }
+    .youtube_video_container {
+        position: sticky;
+        width: 100%;
+        top: 0%;
+        height: 25vh;
+        margin: 0 auto;
+        display: block;
+        text-align: center;
+        z-index: 2;
+        margin-bottom: 340px;
+    }
+    .submit_button {
+        display: block;
+        margin: 0 auto;
+    }
 }

@@ -9,7 +9,6 @@
 .error_text {
     color: white;
     font-size: 2.2em;
-    
     margin: 0;
 }
 
@@ -23,7 +22,6 @@
 .message_text {
     color: white;
     font-size: 2.2em;
-    
     margin: 0;
 }
 
@@ -46,4 +44,38 @@
 
 .return_home:hover {
     background: none;
+}
+
+@media only screen and (max-width: 800px) {
+    .error_container {
+        width: 60%;
+    }
+    .error_text {
+        font-size: 1.5em;
+    }
+
+    .error_type_text {
+        font-size: 6em;
+    }
+
+    .message_text {
+        font-size: 1.5em;
+    }
+}
+
+@media only screen and (max-width: 450px) {
+    .error_container {
+        width: 70%;
+    }
+    .error_text {
+        font-size: 1.5em;
+    }
+
+    .error_type_text {
+        font-size: 6em;
+    }
+
+    .message_text {
+        font-size: 1.5em;
+    }
 }
