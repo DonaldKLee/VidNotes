@@ -43,6 +43,11 @@ label {
     width:50%;
 }
 
+.errors {
+    
+    color: red;
+}
+
 .youtube_video_container {
     position: fixed;
     width: 45%;

@@ -48,7 +48,7 @@
                 {% if note_data %}
                     {{ form.video_link(value=note_data.video_link, placeholder="www.youtube.com/watch?v=EXAMPLEVIDEO", type="url", id="video_link", class="rounded_form_box", oninput="video_given()") }}
                 {% else %}
-                    {{ form.video_link(value="https://www.youtube.com/watch?v=B_Pd4EvwpQY", placeholder="www.youtube.com/watch?v=EXAMPLEVIDEO", type="url", id="video_link", class="rounded_form_box", oninput="video_given()") }}
+                    {{ form.video_link(placeholder="www.youtube.com/watch?v=EXAMPLEVIDEO", type="url", id="video_link", class="rounded_form_box", oninput="video_given()") }}
                 {% endif %}
 
 
