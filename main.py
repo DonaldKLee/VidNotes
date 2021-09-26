@@ -232,4 +232,4 @@ if __name__ == "__main__":  # Makes sure this is the main process
 
 
 if __name__ == "__main__":  # Makes sure this is the main process
-	app.run()
+	app.run(debug=True, use_reloader=True)
