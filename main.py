@@ -31,6 +31,12 @@ MongoDBPassword = config('MongoDBPassword')
 client = pymongo.MongoClient("mongodb+srv://" + MongoDBUsername + ":" + MongoDBPassword + "@cluster0.aoruz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 db = client.database
 
+app = Flask(  # Create a flask app
+	__name__,
+	template_folder='templates',  # Name of html file folder
+	static_folder='static'  # Name of directory for static files
+)
+
 # Checks database and deletes any expired collections
 def deletes_expired():
     today = date.today()
@@ -40,12 +46,6 @@ def deletes_expired():
         # If expired, delete
         if str(expiry_date) < str(today):
             db.notes.delete_one({"url_name":note['url_name']})
-
-app = Flask(  # Create a flask app
-	__name__,
-	template_folder='templates',  # Name of html file folder
-	static_folder='static'  # Name of directory for static files
-)
 
 # Prevents cache from using the old css file, makes it use the updated one
 @app.context_processor
@@ -219,6 +219,7 @@ scheduler = BackgroundScheduler()
 scheduler.add_job(func=deletes_expired, trigger="interval", seconds=300)
 scheduler.start()
 
+"""
 # For repl hosting
 if __name__ == "__main__":  # Makes sure this is the main process
 	app.run( # Starts the site
@@ -226,3 +227,4 @@ if __name__ == "__main__":  # Makes sure this is the main process
 		port=random.randint(2000, 9000),  # Randomly select the port the machine hosts on.
         debug=True # Updates site when new changes are made
     )
+"""
