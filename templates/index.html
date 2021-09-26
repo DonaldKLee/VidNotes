@@ -7,12 +7,11 @@
     
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- Adds the Roboto font -->
+        <!-- Adds the Poppins font -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
-        
-        
+        <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+                
         <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
         </style>
@@ -21,6 +20,10 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}"> 
         <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}"> 
         
+
+        <!--Font Awesome-->
+        <script src="https://kit.fontawesome.com/ba7447c34f.js" crossorigin="anonymous"></script>
+    
     </head>
 
 <body>
@@ -33,14 +36,16 @@
             {% include 'header.html' %}
             {% endwith %}
 
-            <p class="intro">Send a link containing a YouTube video alongside notes or instructions,</br>or take notes while watching a YouTube video on the side</p>
-            
+            <button class="swap_button" id="swap_button" onclick="swap()" name="swap"><i class="fas fa-sync-alt swap_icon" id="swap_icon"></i></button>
+
             <div class="youtube_video_container" id="youtube_video_container" style="display:none">
                 <iframe class="youtube_video" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" id="video_player" allowfullscreen></iframe>
             </div> 
 
             <!-- Form -->
-            <form class="form" action="/submit" method="post">
+            <form class="form" id="form" action="/submit" method="post">
+                <p class="intro">Send a link containing a YouTube video alongside notes or instructions,</br>or take notes while watching a YouTube video on the side</p>
+            
                 {{ form.csrf_token }}
 
                 <label>YouTube Video Link:</label><br>
@@ -59,7 +64,7 @@
 
                 </br></br>
 
-                <label>Note Title</label></br>
+                <label>Note Title:</label></br>
 
 
                 {% if note_data %}
@@ -127,7 +132,7 @@
 
 
     {% include 'footer.html' %}
-
+    
     <script src="{{url_for('static', filename='javascript/home.js')}}"></script>
 
     {# Doesn't work if note has \n or \r, commented this out

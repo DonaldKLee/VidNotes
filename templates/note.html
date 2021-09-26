@@ -6,11 +6,11 @@
         <link rel="shortcut icon" href="{{ url_for('static', filename='images/logo.png') }}">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         
-        <!-- Adds the Roboto font -->
+        <!-- Adds the Poppins font -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
-        
+        <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+                
         
         <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
@@ -21,6 +21,8 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}"> 
         <link rel="stylesheet" href="{{ url_for('static', filename='css/note.css') }}"> 
         
+        <!--Font Awesome-->
+        <script src="https://kit.fontawesome.com/ba7447c34f.js" crossorigin="anonymous"></script>
 
     </head>
 
@@ -30,25 +32,29 @@
 
             {% include 'header.html' %}
 
-            <p class="intro">Send a link containing a YouTube video alongside notes or instructions,</br>or take notes while watching a YouTube video on the side</p>
-            
+            <button class="swap_button" id="swap_button" onclick="swap()" name="swap"><i class="fas fa-sync-alt swap_icon" id="swap_icon"></i></button>
 
-            <div class="top">
+    
+
+            <div class="top" id="link">
+                <p class="intro">Send a link containing a YouTube video alongside notes or instructions,</br>or take notes while watching a YouTube video on the side</p>
                 <label>Copy this link to send it to others, or to refer back to your note:</label>
                 
                 </br>
                 
-                <input class="note_link" type="url" value="https://vidnotes.donaldklee.repl.co/note/{{ note_data.url_name }}" id="note_link" readonly>
-                <button class="copy_link_button" onclick="copy_note_link()">Copy link!</button>
-
+                <div class="copy_link_container">
+                    <input class="note_link" type="url" value="https://vidnotes.donaldklee.repl.co/note/{{ note_data.url_name }}" id="note_link" readonly>
+                    <button class="copy_link_button" onclick="copy_note_link()">Copy link!</button>
+                </div>
+                
                 <h4 class="expiry_date">Link expires after: {{ note_data.expiry_date }}</h4>
             </div>
 
-            <div class="youtube_video_container">
+            <div class="youtube_video_container" id="youtube_video_container">
                 <iframe class="youtube_video" id="youtube_video" src="{{ note_data.video_link }}"  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div> 
 
-            <div class="left_container">
+            <div class="left_container" id="left_container">
 
                 <h2 class="note_title">{{ note_data.title }}</h2>
 
@@ -61,7 +67,7 @@
 
                 {{ form.note_name(value=note_data.url_name, style="display:none;") }}
                 </br>
-                <input class="duplicate_button" type="submit" value="Click me to duplicate this note!"/>
+                <input class="duplicate_button" type="submit" value="Duplicate this note!"/>
                 </form>
             </div>
 
