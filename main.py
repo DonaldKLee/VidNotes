@@ -228,3 +228,6 @@ if __name__ == "__main__":  # Makes sure this is the main process
         debug=True # Updates site when new changes are made
     )
 """
+
+if __name__ == "__main__":  # Makes sure this is the main process
+	app.run()
