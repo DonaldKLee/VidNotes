@@ -18,6 +18,10 @@
     border: white solid;
 }
 
+.accordion:hover {
+    transform: scale(1.02);
+}
+
 /*The plus and minus sign*/
 .accordion:after {
     content: '\002B';
