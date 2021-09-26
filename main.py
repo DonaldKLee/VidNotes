@@ -1,17 +1,6 @@
 """
 Project Name: VidNotes
 By: Donald Lee
-Start date: Aug 14th 2021
-
-Features:
-
-Password protect?
-Swap notes and video
-- Add a button that switches float
-- Make the button look nice
-
-History section? (Local storage)
-
 """
 
 from flask import Flask, render_template, url_for, redirect
@@ -32,8 +21,13 @@ import functions
 # MongoDB
 import dns # For mongodb to work, this installs an older version of bson, if version error, uninstall bson/pymongo to get it working again
 import pymongo # If dnspython module error, do 'pip install pymongo[srv]'
-MongoDBUsername = os.environ['MongoDBUsername']
-MongoDBPassword = os.environ['MongoDBPassword']
+
+from decouple import config
+MongoDBUsername = config('MongoDBUsername')
+MongoDBPassword = config('MongoDBPassword')
+#MongoDBUsername = os.environ['MongoDBUsername']
+#MongoDBPassword = os.environ['MongoDBPassword']
+
 client = pymongo.MongoClient("mongodb+srv://" + MongoDBUsername + ":" + MongoDBPassword + "@cluster0.aoruz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 db = client.database
 
@@ -135,8 +129,11 @@ def submit():
 
         try:
             if email:
-                gmail_user = os.environ['email']
-                gmail_password = os.environ['password']
+                gmail_user = config('email')
+                gmail_password = config('password')
+
+                # gmail_user = os.environ['email']
+                # gmail_password = os.environ['password']
 
                 subject = title + ' - Your VidNotes'
                 body = f"Title: {title}\n\nYouTube video: {video_link}\n\nNote:\n{note}\n\nLink: https://vidnotes.donaldklee.repl.co/note/{url_name}\nLink expires after: {expiry_date}"
@@ -225,7 +222,7 @@ scheduler.start()
 # For repl hosting
 if __name__ == "__main__":  # Makes sure this is the main process
 	app.run( # Starts the site
-		host='0.0.0.0',  # EStablishes the host, required for repl to detect the site
+		host='127.0.0.1',  # EStablishes the host, required for repl to detect the site
 		port=random.randint(2000, 9000),  # Randomly select the port the machine hosts on.
         debug=True # Updates site when new changes are made
     )

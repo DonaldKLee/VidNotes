@@ -64,7 +64,9 @@
         </div>
     </div>
 
-    {% include 'footer.html' %}
+    {% with active_page="faq" %} {# sets faq as the active page #}
+        {% include 'footer.html' %}
+    {% endwith %}
 
 </body>
 

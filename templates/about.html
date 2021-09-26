@@ -106,7 +106,10 @@ VidNotes is a free web-based service that allows you to send a link containing a
 
     </div>
 
-    {% include 'footer.html' %}
+
+    {% with active_page="about" %} {# sets about as the active page #}
+        {% include 'footer.html' %}
+    {% endwith %}
 
 </body>
 
