@@ -31,11 +31,15 @@ MongoDBPassword = config('MongoDBPassword')
 client = pymongo.MongoClient("mongodb+srv://" + MongoDBUsername + ":" + MongoDBPassword + "@cluster0.aoruz.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 db = client.database
 
+"""
 app = Flask(  # Create a flask app
 	__name__,
 	template_folder='templates',  # Name of html file folder
 	static_folder='static'  # Name of directory for static files
 )
+"""
+
+app = Flask(__name__)
 
 # Checks database and deletes any expired collections
 def deletes_expired():
