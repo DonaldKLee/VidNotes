@@ -236,4 +236,4 @@ if __name__ == "__main__":  # Makes sure this is the main process
 
 
 if __name__ == "__main__":  # Makes sure this is the main process
-	app.run(host='0.0.0.0', debug=True, port=5000)
+	app.run(threaded=True, port=5000)
