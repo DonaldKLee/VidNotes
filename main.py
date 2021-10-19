@@ -140,7 +140,7 @@ def submit():
                 # gmail_password = os.environ['password']
 
                 subject = title + ' - Your VidNotes'
-                body = f"Title: {title}\n\nYouTube video: {video_link}\n\nNote:\n{note}\n\nLink: https://vidnotes.donaldklee.repl.co/note/{url_name}\nLink expires after: {expiry_date}"
+                body = f"Title: {title}\n\nYouTube video: {video_link}\n\nNote:\n{note}\n\nLink: https://usevidnotes.herokuapp.com/note/{url_name}\nLink expires after: {expiry_date}"
 
                 msg = EmailMessage()
                 msg.set_content(body)
