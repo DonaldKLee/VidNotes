@@ -82,7 +82,7 @@ def submit():
     form = video_note_form() 
 
     if form.validate_on_submit():
-        video_link = form.video_link.data.strip(" ").replace('watch?v=', 'embed/')
+        video_link = form.video_link.data.strip(" ").replace('watch?v=', 'embed/').replace('m.youtube', 'youtube')
         # Removes the extra URL text if the video is from a playlist
         video_link = video_link.split("&list=")[0]
 
