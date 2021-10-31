@@ -25,5 +25,7 @@ def is_youtube_video(form, field):
         return
     if "embed" in field.data:
         return
+    if "youtu.be/" in field.data:
+        return
     if not_youtube_video:
         raise ValidationError("This is not a valid YouTube video, please try again!")

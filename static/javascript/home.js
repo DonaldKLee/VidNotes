@@ -14,7 +14,8 @@ function video_given() {
     // Add https://www.youtube.com/embed/
 
     // Converts the shortened YouTube link to it's general link
-    var new_link = link.replace('youtu.be/watch?v=', 'youtube.com/watch?v=');
+
+    var new_link = link.replace('youtu.be/', 'youtube.com/watch?v=');
 
     var new_link = new_link.replace('watch?v=', 'embed/');
 
